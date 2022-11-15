@@ -1,10 +1,11 @@
+def gen_checksum(msg):
+        sum=0
+        for i in msg:
+            sum+=ord(i)
+        while (len(bin(sum)))-2>8:
+            tmp=int(sum / pow(2,(len(bin(sum)))-3))
+            sum=sum % pow(2,(len(bin(sum)))-3)
+            sum=sum+tmp
+        return sum
 
-import struct
-tmp_pkt=[]
-seq=1
-data='hello'
-checksum=10
-var=struct.pack('?5si',seq,bytes(data, encoding='utf8'),checksum)
-print(var)
-tup = struct.unpack('?5si', var)
-print(tup)
+print(gen_checksum('hello there'))
