@@ -26,7 +26,9 @@ class pkt:
     def __init__(self,seq=False,data=""):
         self.seq=seq
         self.data=data
-        self.checksum=pkt.gen_checksum(data)
+        #self.checksum=pkt.gen_checksum(data)
+        #for corrupt packet setting checksum as a false value
+        self.checksum=10
 
 
     def encode(self):
@@ -96,6 +98,7 @@ class rdt:
                             print(e)
                     else:
                         try:
+                            print('Corrupt Packet Recieved')
                             self.udt_send(pkt.mk_ack_pkt(self.seq))
                             break
                         except Exception as e:
